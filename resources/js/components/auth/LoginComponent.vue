@@ -72,7 +72,7 @@ export default {
       params.append("name", name.value);
       params.append("password", password.value);
       const response = await postData("/api/auth/login", params);
-      console.log(response);
+    
       if(response.access_token){
         store.set('token',`${response.token_type} ${response.access_token}`);
         store.set('user',response.user);

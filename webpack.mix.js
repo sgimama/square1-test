@@ -26,6 +26,8 @@ mix.js("resources/js/pages/login.js", "public/assets/js/")
     .vue()
     .js("resources/js/pages/newPost.js", "public/assets/js/")
     .vue()
+    .js("resources/js/layouts/sidebar.js", "public/assets/js/")
+    .vue()
     .postCss("resources/css/app.css", "public/assets/css/app.css", [
         require("tailwindcss"),
     ]);

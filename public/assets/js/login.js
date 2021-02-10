@@ -16332,7 +16332,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 response = _context.sent;
-                console.log(response);
 
                 if (response.access_token) {
                   store.set('token', "".concat(response.token_type, " ").concat(response.access_token));
@@ -16340,7 +16339,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   window.location = "/home";
                 }
 
-              case 8:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -16477,7 +16476,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getData": () => (/* binding */ getData),
-/* harmony export */   "postData": () => (/* binding */ postData)
+/* harmony export */   "postData": () => (/* binding */ postData),
+/* harmony export */   "getDataWithToken": () => (/* binding */ getDataWithToken)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -16527,14 +16527,52 @@ var getData = /*#__PURE__*/function () {
   };
 }();
 
-var postData = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(url, params) {
-    var response;
+var getDataWithToken = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(url) {
+    var params,
+        response,
+        _args2 = arguments;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
+            params = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : null;
+            _context2.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(url, {
+              params: params
+            }, {
+              headers: {
+                'Authorization': store.get('token'),
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
+              }
+            });
+
+          case 3:
+            response = _context2.sent;
+            return _context2.abrupt("return", response.data);
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getDataWithToken(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var postData = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(url, params) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, params, {
               headers: {
                 'Authorization': store.get('token'),
@@ -16544,35 +16582,8 @@ var postData = /*#__PURE__*/function () {
             });
 
           case 2:
-            response = _context2.sent;
-            return _context2.abrupt("return", response.data);
-
-          case 4:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function postData(_x2, _x3) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var getToken = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-    var response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/token');
-
-          case 2:
             response = _context3.sent;
-            return _context3.abrupt("return", response);
+            return _context3.abrupt("return", response.data);
 
           case 4:
           case "end":
@@ -16582,8 +16593,35 @@ var getToken = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getToken() {
+  return function postData(_x3, _x4) {
     return _ref3.apply(this, arguments);
+  };
+}();
+
+var getToken = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/token');
+
+          case 2:
+            response = _context4.sent;
+            return _context4.abrupt("return", response);
+
+          case 4:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function getToken() {
+    return _ref4.apply(this, arguments);
   };
 }();
 

@@ -29,7 +29,7 @@ Route::group([
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
-        Route::get('logout', [AuthController::class, 'logout']);
+        Route::post('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
         Route::post('/post/create', [PostController::class, 'store']);
     });

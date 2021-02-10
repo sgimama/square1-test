@@ -8,6 +8,17 @@ const getData = async (url, params = null) => {
     return response.data;
 };
 
+const getDataWithToken = async (url, params = null) => {
+    const response = await axios.get(url, { params }, {
+        headers: {
+            'Authorization' : store.get('token'),
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    });
+    return response.data;
+};
+
 const postData = async (url, params) => {
     const response = await axios.post(url, params, {
         headers: {
@@ -24,4 +35,4 @@ const getToken = async () => {
     return response;
 };
 
-export { getData, postData };
+export { getData, postData, getDataWithToken };

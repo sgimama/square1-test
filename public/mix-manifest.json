@@ -2,5 +2,6 @@
     "/assets/js/login.js": "/assets/js/login.js",
     "/assets/js/postList.js": "/assets/js/postList.js",
     "/assets/js/newPost.js": "/assets/js/newPost.js",
+    "/assets/js/sidebar.js": "/assets/js/sidebar.js",
     "/assets/css/app.css": "/assets/css/app.css"
 }

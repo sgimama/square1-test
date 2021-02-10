@@ -35,13 +35,11 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        //dd($request);
         $request->validate([
             'name' => 'required|string',
             'password' => 'required|string',
-           // 'remember_me' => 'boolean'
         ]);
-        //dd($request);
+
         $credentials = request(['name', 'password']);
         
         if (!Auth::attempt($credentials))
@@ -50,17 +48,13 @@ class AuthController extends Controller
             ], 401);
 
         $user = $request->user();
-        //dd($user);
         $tokenResult = $user->createToken('Personal Access Token');
 
         $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
+       
+        $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
-        //dd(Auth::user());
-        //Session::put('user', Auth::user());
-        Auth::login($user);
-        Auth::guard('web')->check($user);
+
         return response()->json([
             'user' => $user,
             'access_token' => $tokenResult->accessToken,
@@ -77,7 +71,7 @@ class AuthController extends Controller
         $request->user()->token()->revoke();
 
         return response()->json([
-            'message' => 'Successfully logged out'
+            'message' => 'ok'
         ]);
     }
 

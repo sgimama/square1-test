@@ -18,7 +18,7 @@ export default {
       const params = {
         orderBy: "desc",
       };
-      const response = await getData("http://127.0.0.1:8000/post", params);
+      const response = await getData("/post", params);
       posts.value = response.posts;
     };
 
