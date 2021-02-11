@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -41,7 +42,7 @@ class AuthController extends Controller
         ]);
 
         $credentials = request(['name', 'password']);
-        
+
         if (!Auth::attempt($credentials))
             return response()->json([
                 'message' => 'Invalid credentials'
@@ -51,7 +52,7 @@ class AuthController extends Controller
         $tokenResult = $user->createToken('Personal Access Token');
 
         $token = $tokenResult->token;
-       
+
         $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 

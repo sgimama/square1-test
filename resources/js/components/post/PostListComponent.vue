@@ -1,8 +1,9 @@
 <template>
   <button @click="() => posts.reverse()" 
     class="outline-none text-white bg-red-600 border-0 p-2 rounded m-8 mb-0 text-lg ">
-    Sort by date</button>
-<Loader v-if="isLoading"/>
+    Sort by date
+    </button>
+  <Loader v-if="isLoading"/>
   <section class="min-h-screen space-y-8 px-8 my-8">
     <Post v-for="post of posts" :data="post" />
   </section>

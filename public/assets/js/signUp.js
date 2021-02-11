@@ -16436,7 +16436,7 @@ var _hoisted_4 = {
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h2", {
   "class": "m-0 text-center text-3xl font-extrabold text-gray-900"
-}, " Sign in to your account ")], -1
+}, " Create new account ")], -1
 /* HOISTED */
 );
 

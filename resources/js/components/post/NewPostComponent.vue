@@ -75,11 +75,10 @@ export default {
       params.append("user_id", store.get("user").id);
 
       const response = await postData("/api/auth/post/create", params);
-      isLoading.value = false;
       window.location = "/";
     };
 
-    return { title, description, newPost };
+    return { title, description, newPost, isLoading};
   },
   components:{
     Loader,

@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
@@ -16,18 +17,23 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        
-        if($request['user_id']){
+
+        if ($request['user_id']) {
             $posts = DB::table('posts')
-            ->where('user_id','=',$request['user_id'])
-            ->orderBy('publication_date', 'desc')
-            ->get();
-        }else{
-            $posts = DB::table('posts')
-            ->orderBy('publication_date', 'desc')
-            ->get();
+                ->where('user_id', '=', $request['user_id'])
+                ->orderBy('publication_date', 'desc')
+                ->get();
+        } else {
+            if (Cache::has('posts')) {
+                $posts = Cache::get('posts');
+            } else {
+                $posts = Cache::remember('posts', 3000, function () {
+                    return DB::table('posts')
+                        ->orderBy('publication_date', 'desc')
+                        ->get();
+                });
+            }
         }
-        
         return compact('posts');
     }
 
@@ -49,12 +55,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = New Post();
+        $post = new Post();
         $post->title = $request['title'];
         $post->description = $request['description'];
         $post->user_id = $request['user_id'];
         $post->save();
-        $lastId = $post->id;
+
         return $post;
     }
 
