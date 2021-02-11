@@ -1,4 +1,5 @@
 <template>
+<Loader v-if="isLoading"/>
   <div class="min-h-screen items-center">
     <section class="space-y-8 px-8 my-8">
       <div
@@ -57,24 +58,31 @@
 import { ref, computed } from "vue";
 import { postData } from "../../hooks/api";
 import { Localit } from "localit";
+import Loader from '../ui/Loader';
 
 export default {
   setup() {
     const store = new Localit();
     const title = ref("");
     const description = ref("");
+    const isLoading = ref(false);
 
     const newPost = async (evt) => {
+      isLoading.value = true;
       const params = new FormData();
       params.append("title", title.value);
       params.append("description", description.value);
       params.append("user_id", store.get("user").id);
 
       const response = await postData("/api/auth/post/create", params);
-      window.location = "/home";
+      isLoading.value = false;
+      window.location = "/";
     };
 
     return { title, description, newPost };
   },
+  components:{
+    Loader,
+  }
 };
 </script>

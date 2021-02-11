@@ -22,6 +22,8 @@ Mix.listen("configReady", (webpackConfig) => {
 
 mix.js("resources/js/pages/login.js", "public/assets/js/")
     .vue()
+    .js("resources/js/pages/signUp.js", "public/assets/js/")
+    .vue()
     .js("resources/js/pages/postList.js", "public/assets/js/")
     .vue()
     .js("resources/js/pages/newPost.js", "public/assets/js/")

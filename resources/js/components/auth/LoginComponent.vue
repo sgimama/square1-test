@@ -1,4 +1,5 @@
 <template>
+<Loader v-if="isLoading"/>
   <div class="min-h-screen items-center">
     <section class="space-y-8 px-8 my-8">
       <div
@@ -51,6 +52,12 @@
           </form>
         </div>
       </div>
+     <div
+        v-if="messageError"
+        class="rounded-md shadow-sm flex items-center justify-center bg-red-400 py-3 px-4 sm:px-6 lg:px-8"
+      >
+        <p class="text-white text-lg">{{messageError}}</p>
+      </div>
     </section>
   </div>
 </template>
@@ -60,28 +67,39 @@
 import { ref, computed } from "vue";
 import { getData, postData } from "../../hooks/api";
 import { Localit } from 'localit';
+import Loader from '../ui/Loader';
 
 export default {
   setup() {
     const name = ref("");
     const password = ref("");
+    const messageError = ref("");
+    const isLoading = ref(false);
     const store = new Localit();
 
     const login = async (evt) => {
+      messageError.value = '';
+      isLoading.value = true;
       const params = new FormData();
       params.append("name", name.value);
       params.append("password", password.value);
       const response = await postData("/api/auth/login", params);
-    
+      console.log(response);
+      if(response.message){
+        messageError.value = response.message;
+        isLoading.value = false;
+      } 
       if(response.access_token){
         store.set('token',`${response.token_type} ${response.access_token}`);
         store.set('user',response.user);
-        window.location = "/home";
+        window.location = "/";
       }
-
     };
 
-    return { name, password, login };
+    return { name, password, login, isLoading, messageError };
   },
+  components:{
+    Loader,
+  }
 };
 </script>

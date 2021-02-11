@@ -16,9 +16,18 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = DB::table('posts')
-        ->orderBy('publication_date', $request['orderBy'])
-        ->get();
+        
+        if($request['user_id']){
+            $posts = DB::table('posts')
+            ->where('user_id','=',$request['user_id'])
+            ->orderBy('publication_date', 'desc')
+            ->get();
+        }else{
+            $posts = DB::table('posts')
+            ->orderBy('publication_date', 'desc')
+            ->get();
+        }
+        
         return compact('posts');
     }
 

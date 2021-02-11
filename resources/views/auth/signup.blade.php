@@ -2,7 +2,7 @@
 @section('title', 'Login')
 @section('content')
 <div id="app" class="content">
-    <login></login>
+    <signup></signup>
 </div>
-<script src="{{mix('assets/js/login.js')}}"></script>
+<script src="{{mix('assets/js/signUp.js')}}"></script>
 @endsection

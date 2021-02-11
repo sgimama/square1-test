@@ -16,15 +16,16 @@
 
     <div class="flex flex-col mb-6 px-4 space-y-4 text-xl">
 
-        <a href="/home" class="text-white no-underline hover:text-red-500 transition">Home</a>
+        <a href="/" class="text-white no-underline hover:text-red-500 transition">Home</a>
         
         <template v-if="isLogin">
-            <a href="#" class="text-white no-underline hover:text-red-500 transition">My posts</a>
+            <a href="/my-posts" class="text-white no-underline hover:text-red-500 transition">My posts</a>
             <a href="/post/create" class="text-white no-underline hover:text-red-500 transition">New post</a>
             <button @click="logout()" class="outline-none text-white bg-red-600 border-0 p-2 rounded mb-0 text-lg ">Logout</button>
         </template>
         <template v-else>
             <a href="/login" class="text-white no-underline hover:text-red-500 transition">Login</a>
+            <a href="/sign-up" class="text-white no-underline hover:text-red-500 transition">Sign up</a>
         </template>
     </div>
 
@@ -39,10 +40,12 @@ import { getDataWithToken , postData} from "../../hooks/api";
 export default {
     setup(){
         const store = new Localit();
-        let isLogin = ref('');
+        const userId = ref(0);
+        let isLogin = ref(false);
 
         if(store.get('token')){
-            isLogin = true;
+            isLogin.value = true;
+            userId.value = store.get('user').id;
         }
 
         const logout = async () => {
@@ -50,12 +53,12 @@ export default {
             if(response.message == 'ok') {
                 store.remove('token');
                 store.remove('user');
-                isLogin = false;
-                window.location = "/home";
+                isLogin.value = false;
+                window.location = "/";
             }
         };
 
-         return { isLogin, logout };
+         return { isLogin, logout, userId };
     }
 }
 </script>

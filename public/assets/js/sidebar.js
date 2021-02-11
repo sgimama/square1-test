@@ -16314,10 +16314,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
     var store = new localit__WEBPACK_IMPORTED_MODULE_1__.Localit();
-    var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)('');
+    var userId = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)(0);
+    var isLogin = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)(false);
 
     if (store.get('token')) {
-      isLogin = true;
+      isLogin.value = true;
+      userId.value = store.get('user').id;
     }
 
     var logout = /*#__PURE__*/function () {
@@ -16336,8 +16338,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (response.message == 'ok') {
                   store.remove('token');
                   store.remove('user');
-                  isLogin = false;
-                  window.location = "/home";
+                  isLogin.value = false;
+                  window.location = "/";
                 }
 
               case 4:
@@ -16355,7 +16357,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     return {
       isLogin: isLogin,
-      logout: logout
+      logout: logout,
+      userId: userId
     };
   }
 });
@@ -16407,14 +16410,14 @@ var _hoisted_3 = {
 };
 
 var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-  href: "/home",
+  href: "/",
   "class": "text-white no-underline hover:text-red-500 transition"
 }, "Home", -1
 /* HOISTED */
 );
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-  href: "#",
+  href: "/my-posts",
   "class": "text-white no-underline hover:text-red-500 transition"
 }, "My posts", -1
 /* HOISTED */
@@ -16427,11 +16430,20 @@ var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
-var _hoisted_7 = {
-  key: 1,
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
   href: "/login",
   "class": "text-white no-underline hover:text-red-500 transition"
-};
+}, "Login", -1
+/* HOISTED */
+);
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+  href: "/sign-up",
+  "class": "text-white no-underline hover:text-red-500 transition"
+}, "Sign up", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [_hoisted_4, $setup.isLogin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
@@ -16442,7 +16454,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "outline-none text-white bg-red-600 border-0 p-2 rounded mb-0 text-lg "
   }, "Logout")], 64
   /* STABLE_FRAGMENT */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("a", _hoisted_7, "Login"))])]);
+  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 1
+  }, [_hoisted_7, _hoisted_8], 64
+  /* STABLE_FRAGMENT */
+  ))])]);
 }
 
 /***/ }),
@@ -16457,8 +16473,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getData": () => (/* binding */ getData),
-/* harmony export */   "postData": () => (/* binding */ postData),
-/* harmony export */   "getDataWithToken": () => (/* binding */ getDataWithToken)
+/* harmony export */   "postData": () => (/* binding */ postData)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -16508,52 +16523,14 @@ var getData = /*#__PURE__*/function () {
   };
 }();
 
-var getDataWithToken = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(url) {
-    var params,
-        response,
-        _args2 = arguments;
+var postData = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(url, params) {
+    var response;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            params = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : null;
-            _context2.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(url, {
-              params: params
-            }, {
-              headers: {
-                'Authorization': store.get('token'),
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-Requested-With': 'XMLHttpRequest'
-              }
-            });
-
-          case 3:
-            response = _context2.sent;
-            return _context2.abrupt("return", response.data);
-
-          case 5:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function getDataWithToken(_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var postData = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(url, params) {
-    var response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
+            _context2.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().post(url, params, {
               headers: {
                 'Authorization': store.get('token'),
@@ -16563,46 +16540,19 @@ var postData = /*#__PURE__*/function () {
             });
 
           case 2:
-            response = _context3.sent;
-            return _context3.abrupt("return", response.data);
+            response = _context2.sent;
+            return _context2.abrupt("return", response.data);
 
           case 4:
           case "end":
-            return _context3.stop();
+            return _context2.stop();
         }
       }
-    }, _callee3);
+    }, _callee2);
   }));
 
-  return function postData(_x3, _x4) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-
-var getToken = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-    var response;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/token');
-
-          case 2:
-            response = _context4.sent;
-            return _context4.abrupt("return", response);
-
-          case 4:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4);
-  }));
-
-  return function getToken() {
-    return _ref4.apply(this, arguments);
+  return function postData(_x2, _x3) {
+    return _ref2.apply(this, arguments);
   };
 }();
 

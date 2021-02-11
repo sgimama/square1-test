@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function signUp(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string'
         ]);
@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'ok'
         ], 201);
     }
 
@@ -44,8 +44,8 @@ class AuthController extends Controller
         
         if (!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
+                'message' => 'Invalid credentials'
+            ]);
 
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');

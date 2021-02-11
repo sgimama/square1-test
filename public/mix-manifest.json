@@ -1,5 +1,6 @@
 {
     "/assets/js/login.js": "/assets/js/login.js",
+    "/assets/js/signUp.js": "/assets/js/signUp.js",
     "/assets/js/postList.js": "/assets/js/postList.js",
     "/assets/js/newPost.js": "/assets/js/newPost.js",
     "/assets/js/sidebar.js": "/assets/js/sidebar.js",

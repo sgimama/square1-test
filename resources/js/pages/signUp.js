@@ -4,6 +4,6 @@ import SignUp from "../components/auth/SignUpComponent.vue";
 createApp({
     name: "SignUpComponent",
     components: {
-        signUp: SignUp,
+        signup: SignUp,
     },
 }) .mount("#app");
